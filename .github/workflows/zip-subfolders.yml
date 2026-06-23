@@ -16,11 +16,16 @@ jobs:
 
       - name: Zip each subfolder
         run: |
-          mkdir -p dist
+          mkdir -p dist/epicgameguy
           for dir in */; do
             dir="${dir%/}"
+            if [ "$dir" = "dist" ]; then
+              continue
+            fi
+            cp -r "$dir" "dist/epicgameguy/$dir"
             echo "Zipping $dir..."
-            zip -r "dist/${dir}.zip" "$dir"
+            zip -r "dist/${dir}.zip" "dist/epicgameguy"
+            rm -rf "dist/epicgameguy/$dir"
           done
 
       - name: Upload zip artifacts

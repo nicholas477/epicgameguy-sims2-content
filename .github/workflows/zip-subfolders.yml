@@ -23,9 +23,11 @@ jobs:
               continue
             fi
             cp -r "$dir" "dist/epicgameguy/$dir"
+            pushd dist
             echo "Zipping $dir..."
-            zip -r "dist/${dir}.zip" "dist/epicgameguy"
-            rm -rf "dist/epicgameguy/$dir"
+            zip -r "${dir}.zip" "epicgameguy/"
+            rm -rf "epicgameguy/$dir"
+            popd
           done
 
       - name: Upload zip artifacts
